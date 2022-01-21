@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const SimpleInput = (props) => {
   const [initialValue, setInitialValue] = useState("");
+  const [initialValidValue, setInitialValidValue] = useState(true);
 
   const inputHandler = (event) => {
     setInitialValue(event.target.value);
@@ -9,8 +10,13 @@ const SimpleInput = (props) => {
 
   const formHandler = (event) => {
     event.preventDefault();
+    if (initialValue.trim() === "") {
+      setInitialValidValue(false);
+      return;
+    }
     console.log(initialValue);
     setInitialValue("");
+    setInitialValidValue(true);
   };
 
   return (
@@ -23,6 +29,9 @@ const SimpleInput = (props) => {
           id="name"
           onChange={inputHandler}
         />
+        {!initialValidValue && (
+          <p className="error-text">Please Enter Valid Value</p>
+        )}
       </div>
       <div className="form-actions">
         <button>Submit</button>

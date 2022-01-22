@@ -17,17 +17,9 @@ const SimpleInput = (props) => {
   const inputHandler = (event) => {
     setInitialValue(event.target.value);
     const { value } = event.target;
-    // const checkChar = event.target.value;
-    // setUpperCase(event.target.value);
-    // console.log(value);
     setUpperCase(checkUpperCase(value));
     setSpecChar(specialChar(value));
     setMinLength(value.length > 8 ? true : false);
-    // if (upperCase !== "ALI") {
-    //   setUpperCase(true);
-    // } else {
-    //   setUpperCase("no change");
-    // }
   };
 
   function checkUpperCase(value) {
@@ -41,13 +33,9 @@ const SimpleInput = (props) => {
   }
 
   function specialChar(checkChar) {
-    // let charArray = checkChar.split("");
-    // let charCount = 0;
     var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    // charArray.forEach((char) => {
     if (format.test(checkChar)) return true;
     else return false;
-    // })
   }
 
   (function () {

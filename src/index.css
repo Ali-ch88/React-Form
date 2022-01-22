@@ -10,7 +10,7 @@ html {
 
 body {
   margin: 0;
-  background-color: #3f3f3f;
+  background-color: #999999;
 }
 
 .app {
@@ -88,7 +88,7 @@ button:disabled:active {
 }
 
 .para {
-  color: #ff8800;
+  color: #e250b9;
 }
 .success {
   color: #209920;
@@ -96,10 +96,14 @@ button:disabled:active {
 
 .form-actions {
   text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form-actions button {
-  margin-left: 1rem;
+  background-color: #b40e0e;
+  color: #ccc;
 }
 
 .invalid input {

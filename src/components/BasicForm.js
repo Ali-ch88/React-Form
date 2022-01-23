@@ -1,10 +1,33 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const BasicForm = (props) => {
   const [isFirstNameValid, setIsFirstNameValid] = useState(false);
   const [isLastNameValid, setIsLastNameValid] = useState(false);
   const [isUserNameValid, setIsUserNameValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  const { register, errors, handleSubmit, formState } = useForm({
+    mode: "onChange",
+  });
+
+  const { touched } = formState;
+
+  const onVerifyNewPassword = () => {
+    if (
+      touched.isPasswordValid === true &&
+      touched.isPasswordConfirm === true
+    ) {
+      if (isPasswordValid !== isPasswordConfirm) {
+        console.log("The passwords dont match");
+        return;
+      } else {
+        console.log("Ok.");
+      }
+    }
+  };
 
   const firstNameHandler = (event) => {
     const firstNameValue = event.target.value;
@@ -30,6 +53,30 @@ const BasicForm = (props) => {
       setIsEmailValid(false);
     }
   };
+  const passwordHandler = (event) => {
+    const passwordValue = event.target.value;
+    let passValueArray = passwordValue.split("");
+    let upperCaseCount = 0;
+    passValueArray.forEach((val) => {
+      if (val == val.toUpperCase()) upperCaseCount += 1;
+    });
+    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if (
+      passwordValue.length > 8 &&
+      format.test(passwordValue) &&
+      upperCaseCount > 2
+    ) {
+      setIsPasswordValid(true);
+    } else setIsPasswordValid(false);
+  };
+  // const passwordConfirmHandler = (event) => {
+  //   const passConfirmValue = event.target.value;
+  //   if (passConfirmValue === "q") {
+  //     setIsPasswordConfirm(true);
+  //   } else {
+  //     setIsPasswordConfirm(false);
+  //   }
+  // };
 
   return (
     <form>
@@ -73,12 +120,27 @@ const BasicForm = (props) => {
       </div>
       <div className="control-group">
         <div className="form-control">
-          <label htmlFor="name">Password</label>
-          <input type="password" id="name" />
+          <label
+            className={isPasswordValid ? "success" : "para"}
+            htmlFor="name"
+          >
+            Password
+          </label>
+          <input type="password" id="name" onChange={passwordHandler} />
         </div>
         <div className="form-control">
-          <label htmlFor="name">Confirm Password</label>
-          <input type="password" id="name" />
+          <label
+            className={isPasswordConfirm ? "success" : "para"}
+            htmlFor="name"
+          >
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="name"
+            // onChange={passwordConfirmHandler}
+            onChange={onVerifyNewPassword}
+          />
         </div>
       </div>
       <div className="form-actions">

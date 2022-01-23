@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 const BasicForm = (props) => {
   const [isFirstNameValid, setIsFirstNameValid] = useState(false);
@@ -8,26 +7,6 @@ const BasicForm = (props) => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-
-  const { register, errors, handleSubmit, formState } = useForm({
-    mode: "onChange",
-  });
-
-  const { touched } = formState;
-
-  const onVerifyNewPassword = () => {
-    if (
-      touched.isPasswordValid === true &&
-      touched.isPasswordConfirm === true
-    ) {
-      if (isPasswordValid !== isPasswordConfirm) {
-        console.log("The passwords dont match");
-        return;
-      } else {
-        console.log("Ok.");
-      }
-    }
-  };
 
   const firstNameHandler = (event) => {
     const firstNameValue = event.target.value;
@@ -69,14 +48,14 @@ const BasicForm = (props) => {
       setIsPasswordValid(true);
     } else setIsPasswordValid(false);
   };
-  // const passwordConfirmHandler = (event) => {
-  //   const passConfirmValue = event.target.value;
-  //   if (passConfirmValue === "q") {
-  //     setIsPasswordConfirm(true);
-  //   } else {
-  //     setIsPasswordConfirm(false);
-  //   }
-  // };
+  const passwordConfirmHandler = (event) => {
+    const passConfirmValue = event.target.value;
+    if (passConfirmValue === "q") {
+      setIsPasswordConfirm(true);
+    } else {
+      setIsPasswordConfirm(false);
+    }
+  };
 
   return (
     <form>
@@ -135,12 +114,7 @@ const BasicForm = (props) => {
           >
             Confirm Password
           </label>
-          <input
-            type="password"
-            id="name"
-            // onChange={passwordConfirmHandler}
-            onChange={onVerifyNewPassword}
-          />
+          <input type="password" id="name" onChange={passwordConfirmHandler} />
         </div>
       </div>
       <div className="form-actions">

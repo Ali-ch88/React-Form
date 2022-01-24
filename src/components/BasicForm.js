@@ -7,6 +7,7 @@ const BasicForm = (props) => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [passWordValue, setPasswordValue] = useState(false);
 
   const firstNameHandler = (event) => {
     const firstNameValue = event.target.value;
@@ -32,6 +33,7 @@ const BasicForm = (props) => {
       setIsEmailValid(false);
     }
   };
+
   const passwordHandler = (event) => {
     const passwordValue = event.target.value;
     let passValueArray = passwordValue.split("");
@@ -46,19 +48,23 @@ const BasicForm = (props) => {
       upperCaseCount > 2
     ) {
       setIsPasswordValid(true);
+      setPasswordValue(passwordValue);
     } else setIsPasswordValid(false);
   };
   const passwordConfirmHandler = (event) => {
     const passConfirmValue = event.target.value;
-    if (passConfirmValue === "q") {
+    if (passConfirmValue === passWordValue) {
       setIsPasswordConfirm(true);
     } else {
       setIsPasswordConfirm(false);
     }
   };
-
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+  };
   return (
-    <form>
+    <form onSubmit={formSubmitHandler}>
       <div className="control-group">
         <div className="form-control">
           <label
@@ -118,7 +124,7 @@ const BasicForm = (props) => {
         </div>
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   );

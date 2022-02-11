@@ -34,23 +34,7 @@ const BasicForm = (props) => {
     }
   };
 
-  const passwordHandler = (event) => {
-    const passwordValue = event.target.value;
-    let passValueArray = passwordValue.split("");
-    let upperCaseCount = 0;
-    passValueArray.forEach((val) => {
-      if (val == val.toUpperCase()) upperCaseCount += 1;
-    });
-    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    if (
-      passwordValue.length > 8 &&
-      format.test(passwordValue) &&
-      upperCaseCount > 2
-    ) {
-      setIsPasswordValid(true);
-      setPasswordValue(passwordValue);
-    } else setIsPasswordValid(false);
-  };
+
   const passwordConfirmHandler = (event) => {
     const passConfirmValue = event.target.value;
     if (passConfirmValue === passWordValue) {

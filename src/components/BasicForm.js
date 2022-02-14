@@ -59,6 +59,19 @@ const BasicForm = (props) => {
       setIsPasswordConfirm(false);
     }
   };
+  useEffect(() => {
+    if (initialValue) {
+      setFormValid(true);
+    } else setFormValid(false);
+  }, [initialValue]);
+
+  const inputHandler = (event) => {
+    setInitialValue(event.target.value);
+    const { value } = event.target;
+    setUpperCase(checkUpperCase(value));
+    setSpecChar(specialChar(value));
+    setMinLength(value.length > 8 ? true : false);
+  };
   const formSubmitHandler = (event) => {
     event.preventDefault();
     console.log(event.target.value);

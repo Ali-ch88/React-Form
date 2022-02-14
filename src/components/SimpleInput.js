@@ -8,19 +8,7 @@ const SimpleInput = (props) => {
   const [specChar, setSpecChar] = useState(false);
   const [minLength, setMinLength] = useState(false);
 
-  useEffect(() => {
-    if (initialValue) {
-      setFormValid(true);
-    } else setFormValid(false);
-  }, [initialValue]);
-
-  const inputHandler = (event) => {
-    setInitialValue(event.target.value);
-    const { value } = event.target;
-    setUpperCase(checkUpperCase(value));
-    setSpecChar(specialChar(value));
-    setMinLength(value.length > 8 ? true : false);
-  };
+ 
 
   function checkUpperCase(value) {
     let valueArray = value.split("");
